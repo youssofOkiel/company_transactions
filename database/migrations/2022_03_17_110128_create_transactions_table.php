@@ -23,7 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->dateTime('dueOn');
             $table->float('VAT');
             $table->boolean('is_VAT_inclusive')->default(false);
-            $table->enum('status', ['paid','outStanding', 'Overdue'])->default('outStanding');
+            $table->enum('status', ['paid','outStanding', 'overDue'])->default('outStanding');
 
             $table->timestamps();
         });

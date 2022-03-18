@@ -17,7 +17,8 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('transaction_id')->references('id')->on('transactions');
             $table->decimal('amount');
-            $table->enum('payment_method', ['VF', 'visa', 'cash'])->nullable();
+            $table->dateTime('paidOn');
+            $table->enum('payment_method', ['VF', 'visa', 'cash'])->default('cash');
             $table->string('details')->nullable();
 
             $table->timestamps();
