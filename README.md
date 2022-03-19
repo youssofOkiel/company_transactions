@@ -70,5 +70,9 @@ payments and generating reports with Authentication for Admin and customer.
 ## Test 
 - using two ways:
   - postman (screenShots)
-  - phpunit test (run > [ php artisan test ] )
+  - phpunit test 
+      - must run seeder at first then run > [ php artisan test ]
+    
+    or 
+      - go to (phpunit.xml) to use memory db cuz tests should  use RefreshDatabase and create user through a factory to pass.
   

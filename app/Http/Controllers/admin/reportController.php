@@ -78,12 +78,10 @@ class reportController extends Controller
                         $paid += $transaction->payments->sum('amount');
                         $outstanding += $transaction->amount - $transaction->payments->sum('amount');
 
-
                         if ($transaction["status"] == 'overDue') {
                             $overdue += (($transaction["amount"] - $transaction->payments->sum('amount')) / $transaction["amount"]);
                         }
                     }
-
                 }
                 $monthes_of_transaction->paid = $paid;
                 $monthes_of_transaction->outStanding = $outstanding;

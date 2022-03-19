@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\payment\recordPaymentRequest;
 use App\Models\Payment;
 use App\Models\Transaction;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class paymentController extends Controller
@@ -13,9 +14,16 @@ class paymentController extends Controller
     public function create(recordPaymentRequest $request)
     {
         try {
-            $transaction = Transaction::find($request->transaction_id);
+            $transaction = Transaction::findOrFail($request->transaction_id);
 
-            if (!empty($transaction)) {
+            $current_date = Carbon::parse(Carbon::now())->format('Y-m-d');
+
+            if ($transaction->status == 'overDue' && date('Y-m-d', strtotime($transaction["dueOn"])) != $current_date) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'transaction is closed'
+                ], 404);
+            }
 
                 if ($transaction->status == 'paid') {
                     return response()->json([
@@ -55,12 +63,6 @@ class paymentController extends Controller
                         ], 201);
                     }
                 }
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'transaction not found'
-                ], 404);
-            }
 
 
         } catch (\Throwable $th) {
@@ -74,9 +76,8 @@ class paymentController extends Controller
     public function show($transaction_id)
     {
         try {
-            $transaction = Transaction::find($transaction_id);
+            $transaction = Transaction::findOrFail($transaction_id);
 
-            if (!empty($transaction)) {
 
                 $transaction->payments->makeHidden(['created_at', 'updated_at']);
 
@@ -84,14 +85,6 @@ class paymentController extends Controller
                     'success' => true,
                     'message' => $transaction->payments
                 ], 201);
-
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'transaction not found'
-                ], 404);
-            }
-
 
         } catch (\Throwable $th) {
             return response()->json(['success' => false,

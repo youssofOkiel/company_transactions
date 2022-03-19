@@ -12,17 +12,6 @@ class categoryController extends Controller
     public function create(createCategoryRequest $request)
     {
         try {
-            if (!empty($request->parent_id))
-            {
-                if (Category::find($request->parent_id) == null)
-                {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'main category no\'t exists'
-                    ],  200);
-                }
-
-            }
 
             Category::create([
                 'name' => $request->name,
