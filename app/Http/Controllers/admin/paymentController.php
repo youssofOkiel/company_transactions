@@ -16,6 +16,7 @@ class paymentController extends Controller
             $transaction = Transaction::find($request->transaction_id);
 
             if (!empty($transaction)) {
+
                 if ($transaction->status == 'paid') {
                     return response()->json([
                         'success' => false,
@@ -35,8 +36,8 @@ class paymentController extends Controller
                         ], 200);
 
                     } else {
-                        $newRecord = new Payment;
 
+                        $newRecord = new Payment;
                         $newRecord->transaction_id = $request->transaction_id;
                         $newRecord->amount = $request->amount;
                         $newRecord->paidOn = $request->paidOn;
@@ -50,7 +51,7 @@ class paymentController extends Controller
 
                         return response()->json([
                             'success' => true,
-                            'message' => 'ok'
+                            'message' => 'payment recorded'
                         ], 201);
                     }
                 }

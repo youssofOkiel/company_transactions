@@ -56,6 +56,16 @@ Route::prefix('admin')->middleware(['auth:api', 'admin'])->group( function () {
 
 });
 
+// Reports
+Route::prefix('admin')->middleware(['auth:api', 'admin'])->group( function () {
+
+    Route::post('/basicReport', [\App\Http\Controllers\admin\reportController::class, 'createBasicReport'])
+        ->name('basicReport');
+    Route::get('/monthlyReport', [\App\Http\Controllers\admin\reportController::class, 'createMonthlyReport'])
+        ->name('monthlyReport');
+
+});
+
 Route::prefix('customer')->middleware('auth:api')->group( function () {
 
     Route::get('/transactions', [\App\Http\Controllers\customer\transactionController::class, 'index'])
