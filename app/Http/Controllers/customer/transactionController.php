@@ -14,6 +14,8 @@ class transactionController extends Controller
         try {
             $transactions = Transaction::where('payer', Auth::user()->id)->get();
 
+            $transactions->makeHidden(['VAT','is_VAT_inclusive', 'created_at', 'updated_at']);
+
             return response()->json([
                 'success' => true,
                 'data' =>  $transactions

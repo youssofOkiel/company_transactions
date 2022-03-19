@@ -77,6 +77,8 @@ class paymentController extends Controller
 
             if (!empty($transaction)) {
 
+                $transaction->payments->makeHidden(['created_at', 'updated_at']);
+
                 return response()->json([
                     'success' => true,
                     'message' => $transaction->payments

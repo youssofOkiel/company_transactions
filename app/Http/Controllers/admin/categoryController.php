@@ -31,7 +31,7 @@ class categoryController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'ok'
+                'message' => 'created'
             ],  201);
 
         } catch (\Throwable $th) {

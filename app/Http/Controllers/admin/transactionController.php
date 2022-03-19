@@ -26,7 +26,7 @@ class transactionController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'ok'
+                'message' => 'created'
             ], 201);
 
         } catch (\Throwable $th) {
@@ -43,6 +43,8 @@ class transactionController extends Controller
             $transactions = Transaction::all();
 
             $this->transactionStatus($transactions);
+
+            $transactions->makeHidden(['VAT','is_VAT_inclusive', 'created_at', 'updated_at']);
 
             return response()->json([
                 'success' => true,

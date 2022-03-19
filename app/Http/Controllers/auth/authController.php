@@ -49,7 +49,6 @@ class authController extends Controller
             {
                 $user = $request->user();
                 $tokenResult = $user->createToken('Personal Access Token');
-                $token = $tokenResult->token;
 
                 return response()->json([
                     'success' => true,
@@ -58,7 +57,7 @@ class authController extends Controller
                     'expires_at' => Carbon::parse(
                         $tokenResult->token->expires_at
                     )->toDateTimeString()
-                ]);
+                ], 200);
             }
 
         } catch (\Throwable $th) {
@@ -76,7 +75,10 @@ class authController extends Controller
             // logout from current device
             Auth::user()->token()->delete();
 
-            return response()->json('Successfully logged out');
+            return response()->json( [
+                'success' => false,
+                'error' =>'Successfully logged out']
+                , 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,

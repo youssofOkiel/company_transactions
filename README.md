@@ -12,8 +12,16 @@ payments and generating reports with Authentication for Admin and customer.
 - mysql db
 - postman
 
-### packages
+### Packages
 - passport package for authentication (it's great if we need to Oauth2 to integrate with third-party apps)
+### How to install
+- install requirements 
+- php artisan passport:install
+#### run following in order
+1. php artisan migrate --path=/database/migrations/2022_03_17_092458_create_roles_table.php
+2. php artisan migrate
+3. php artisan db:seed --class=RoleSeeder
+4. php artisan db:seed --class=UserSeeder
 
 ## Table of content
 1. project structure
@@ -60,3 +68,7 @@ payments and generating reports with Authentication for Admin and customer.
 - [view my transaction] [get] (http://domain.com/api/customer/transactions)
 
 ## Test 
+- using two ways:
+  - postman (screenShots)
+  - phpunit test (run > [ php artisan test ] )
+  
