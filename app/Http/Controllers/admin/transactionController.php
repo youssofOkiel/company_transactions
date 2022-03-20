@@ -4,7 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\transaction\createTransactionRequest;
+use App\Models\Category;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class transactionController extends Controller
@@ -14,11 +16,14 @@ class transactionController extends Controller
     {
         try {
 
+            $user = User::findOrFail($request->payer);
+            $category = Category::findOrFail($request->category_id);
+
             Transaction::create([
-                'category_id' => $request->category_id,
+                'category_id' => $category->id,
                 'subCategory_id' => $request->subCategory_id,
                 'amount' => $request->amount,
-                'payer' => $request->payer,
+                'payer' => $user->id,
                 'dueOn' => $request->dueOn,
                 'VAT' => $request->VAT,
                 'is_VAT_inclusive' => $request->is_VAT_inclusive,
@@ -44,7 +49,7 @@ class transactionController extends Controller
 
             $this->transactionStatus($transactions);
 
-            $transactions->makeHidden(['VAT','is_VAT_inclusive', 'created_at', 'updated_at']);
+            $transactions->makeHidden(['VAT', 'is_VAT_inclusive', 'created_at', 'updated_at']);
 
             return response()->json([
                 'success' => true,

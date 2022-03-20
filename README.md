@@ -62,6 +62,9 @@ payments and generating reports with Authentication for Admin and customer.
 #### payments
 - [record Payment] [post] (http://domain.com/api/admin/recordPayment)
 - [view all Payment for specific transaction] [get] (http://domain.com/api/admin/transactionPayment/{transaction_id})
+#### Reports
+- [Basic Report] [post] (http://domain.com/api/admin/basicReport)
+- [monthly Report] [get] (http://domain.com/api/admin/monthlyReport)
 
 ### Customer
 #### transactions
