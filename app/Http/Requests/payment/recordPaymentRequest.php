@@ -28,7 +28,7 @@ class recordPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'transaction_id' => 'required',
+            'transaction_id' => 'required|exists:App\Models\Transaction,id',
             'amount' => 'required',
             'paidOn' => 'required|date',
         ];

@@ -28,9 +28,10 @@ class createTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required',
+            'category_id' => 'required|exists:App\Models\Category,id',
+            'subCategory_id' => 'exists:App\Models\Category,id',
             'amount' => 'required',
-            'payer' => 'required',
+            'payer' => 'required|exists:App\Models\User,id',
             'dueOn' => 'required|date|after_or_equal:today',
             'VAT' => 'required',
             'is_VAT_inclusive' => 'required',
