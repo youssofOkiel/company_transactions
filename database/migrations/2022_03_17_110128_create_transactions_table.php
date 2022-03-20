@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories');
-            $table->foreignId('subCategory_id')->nullable();
+            $table->foreignId('subCategory_id')->nullable()->references('id')->on('categories');
             $table->decimal('amount');
             $table->foreignId('payer')->references('id')->on('users');
 
